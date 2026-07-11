@@ -10,19 +10,25 @@ pipeline {
 
         stage('docker compose down') {
             steps {
-                sh 'docker compose down'
+                withEnv(['DOCKER_HOST=unix:///var/run/docker.sock']) {
+                    sh 'docker compose down'
+                }
             }
         }
 
         stage('docker compose up -d') {
             steps {
-                sh 'docker compose up -d'
+                withEnv(['DOCKER_HOST=unix:///var/run/docker.sock']) {
+                    sh 'docker compose up -d'
+                }
             }
         }
 
         stage('docker ps verificación') {
             steps {
-                sh 'docker ps'
+                withEnv(['DOCKER_HOST=unix:///var/run/docker.sock']) {
+                    sh 'docker ps'
+                }
             }
         }
     }
