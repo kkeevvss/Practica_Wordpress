@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout desde Git') {
             steps {
-                checkout scm
+                git branch: 'main', url: 'https://github.com/kkeevvss/Practica_Wordpress.git'
             }
         }
 
@@ -20,7 +20,7 @@ pipeline {
             }
         }
 
-        stage('docker ps verificacion') {
+        stage('docker ps verificación') {
             steps {
                 sh 'docker ps'
             }
