@@ -10,7 +10,8 @@ pipeline {
 
         stage('docker compose down') {
             steps {
-                withEnv(['DOCKER_HOST=unix:///var/run/docker.sock']) {
+                // Usamos la IP especial de Docker Desktop para comunicarse con tu Windows
+                withEnv(['DOCKER_HOST=tcp://host.docker.internal:2375']) {
                     sh 'docker compose down'
                 }
             }
@@ -18,7 +19,7 @@ pipeline {
 
         stage('docker compose up -d') {
             steps {
-                withEnv(['DOCKER_HOST=unix:///var/run/docker.sock']) {
+                withEnv(['DOCKER_HOST=tcp://host.docker.internal:2375']) {
                     sh 'docker compose up -d'
                 }
             }
@@ -26,7 +27,7 @@ pipeline {
 
         stage('docker ps verificación') {
             steps {
-                withEnv(['DOCKER_HOST=unix:///var/run/docker.sock']) {
+                withEnv(['DOCKER_HOST=tcp://host.docker.internal:2375']) {
                     sh 'docker ps'
                 }
             }
